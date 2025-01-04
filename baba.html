@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayaclar</title>
+    <style>
+        .counter {
+            font-size: 30px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="counter1" class="counter">0</div>
+    <div id="counter2" class="counter">0</div>
+    <div id="counter3" class="counter">0</div>
+    <div id="counter4" class="counter">0</div>
+    <div id="counter5" class="counter">0</div>
+
+    <script>
+        function getRandomTarget() {
+            return Math.floor(Math.random() * 500) + 100;
+        }
+
+        function startCounters() {
+            const targets = [getRandomTarget(), getRandomTarget(), getRandomTarget(), getRandomTarget(), getRandomTarget()];
+            const speeds = [0.5, 0.5, 0.5, 0.5, 0.5];
+
+            for (let i = 0; i < targets.length; i++) {
+                let currentCount = 0;
+                const target = targets[i];
+                const speed = speeds[i];
+                const counterElement = document.getElementById('counter' + (i + 1));
+
+                const interval = setInterval(() => {
+                    if (currentCount < target) {
+                        currentCount++;
+                        counterElement.innerText = currentCount;
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, speed);
+            }
+        }
+
+        window.onload = startCounters;
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                location.reload();
+            }
+        });
+    </script>
+
+</body>
+</html>
